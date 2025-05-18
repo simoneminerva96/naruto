@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracciatore Episodi Naruto - Ninja Pro</title>
+    <title>Tracciatore Episodi Naruto - Ninja Pro v3</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -58,18 +58,18 @@
         body {
             font-family: 'Open Sans', sans-serif;
             margin: 0;
-            padding: 10px; /* Ridotto per mobile */
+            padding: 10px;
             background-color: var(--current-body-bg);
             color: var(--current-text-light);
             transition: background-color 0.3s, color 0.3s;
-            -webkit-tap-highlight-color: transparent; /* Per mobile */
+            -webkit-tap-highlight-color: transparent;
         }
         .series-container {
             margin-bottom: 30px;
         }
         .series-title {
             font-family: 'Russo One', sans-serif;
-            font-size: clamp(1.8em, 5vw, 2.5em); /* Responsive font size */
+            font-size: clamp(1.8em, 5vw, 2.5em);
             color: var(--naruto-orange);
             margin-bottom: 5px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
@@ -130,7 +130,7 @@
             font-size: 1.1em;
             color: var(--naruto-orange);
             transition: transform 0.2s ease-in-out;
-            width: 18px; /* Adattato */
+            width: 18px;
             display: inline-block;
             text-align: center;
             line-height: 1;
@@ -144,8 +144,8 @@
         }
 
         .header-info {
-            flex-grow: 1; /* Permette al testo di andare a capo se necessario */
-            min-width: 0; /* Necessario per flex-grow con overflow */
+            flex-grow: 1;
+            min-width: 0;
         }
         .header-info .range {
             font-size: 1em;
@@ -177,7 +177,7 @@
 
         .card-group-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* minmax ridotto per mobile */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 12px;
             padding: 12px;
             background-color: var(--current-konoha-blue-light);
@@ -285,7 +285,7 @@
             cursor: pointer;
             position: relative;
             outline: none;
-            flex-shrink: 0; /* Non si restringe */
+            flex-shrink: 0;
         }
         .watched-checkbox:checked {
             background-color: var(--naruto-orange);
@@ -346,10 +346,11 @@
         }
         .filters .filter-group {
             display: flex;
-            flex-wrap: wrap; /* Permette ai filtri di andare a capo */
+            flex-wrap: wrap;
             gap: 8px 10px;
-            flex-grow: 1; /* Occupa spazio disponibile */
-            flex-basis: 200px; /* Base per andare a capo */
+            flex-grow: 1;
+            flex-basis: 200px; /* Min width prima di andare a capo */
+            justify-content: flex-start; /* Allinea a sinistra */
         }
         .filters label {
             margin-right: 5px;
@@ -368,10 +369,24 @@
         .filters .action-buttons {
             display: flex;
             gap: 8px;
-            flex-grow: 1; /* Occupa spazio */
-            flex-basis: 250px; /* Base per andare a capo, abbastanza per i bottoni */
-            justify-content: flex-end; /* Allinea a destra */
+            flex-grow: 1;
+            flex-basis: auto; /* Permetti ai bottoni di occupare lo spazio necessario */
+            justify-content: flex-end;
         }
+
+        @media (max-width: 768px) { /* Per tablet e mobile */
+            .filters .filter-group {
+                flex-basis: 100%; /* Filtri occupano tutta la larghezza e vanno a capo */
+                justify-content: center; /* Centra i filtri quando sono a capo */
+            }
+            .filters .action-buttons {
+                flex-basis: 100%; /* Bottoni occupano tutta la larghezza e vanno a capo */
+                justify-content: center; /* Centra i bottoni */
+                margin-top: 10px;
+            }
+        }
+
+
         .filters button {
             padding: 8px 12px;
             background-color: var(--naruto-orange);
@@ -385,13 +400,15 @@
             transition: background-color 0.2s ease;
             font-family: 'Russo One', sans-serif;
             letter-spacing: 0.5px;
-            flex-shrink: 0; /* Evita che i bottoni si restringano troppo */
+            flex-shrink: 0;
         }
         .filters button#theme-toggle {
             background-color: var(--current-text-dark);
             color: var(--current-body-bg);
-            font-size: 1.2em; /* Per rendere l'icona più grande */
+            font-size: 1.2em;
             padding: 6px 10px;
+            min-width: 40px; /* Per mantenere una dimensione minima */
+            text-align: center;
         }
         .filters button:hover {
             background-color: var(--naruto-orange-dark);
@@ -429,7 +446,7 @@
             <label style="margin-left: 15px;"><input type="checkbox" id="filter-hide-watched"> Nascondi Visti</label>
         </div>
         <div class="action-buttons">
-            <button id="theme-toggle">☀️</button> <!-- Icona iniziale per tema scuro -->
+            <button id="theme-toggle">☀️</button>
             <button id="uncheck-all-visible">Deseleziona Visibili</button>
             <button id="check-all-visible">Seleziona Visibili</button>
         </div>
@@ -4952,10 +4969,10 @@
             const savedTheme = localStorage.getItem(THEME_KEY);
             if (savedTheme === 'light') {
                 document.body.classList.add('light-theme');
-                themeToggleButton.textContent = '🌙'; // Mostra luna se il tema è chiaro (prossimo click sarà scuro)
+                themeToggleButton.textContent = '🌙';
             } else {
                 document.body.classList.remove('light-theme');
-                themeToggleButton.textContent = '☀️'; // Mostra sole se il tema è scuro (prossimo click sarà chiaro)
+                themeToggleButton.textContent = '☀️';
             }
         }
 
@@ -5003,7 +5020,7 @@
         }
         
         function checkAllItemsInBlockWatched(blockId, item) {
-            if (!item) return false; // Safety check
+            if (!item) return false;
             if (item.tipo === "EPISODES") {
                 if (!item.episodi_dettaglio || item.episodi_dettaglio.length === 0) return false;
                 return item.episodi_dettaglio.every(ep => {
@@ -5048,7 +5065,6 @@
 
             document.querySelectorAll('.item-block-header').forEach(headerEl => {
                 const blockId = headerEl.dataset.blockId;
-                 // Troviamo l'item corrispondente dall'array seriesData per accedere ai suoi dettagli
                 const item = seriesData.flatMap(s => s.voci.map(v_item => ({...v_item, serie_titolo_it_ref: s.serie_titolo_it})))
                                       .find(v => generateBlockId(v.serie_titolo_it_ref, v.id_originale) === blockId);
 
@@ -5124,7 +5140,9 @@
             
             expandedBlocks[blockId] = isExpanding;
             saveExpandedState();
+            
             updateBlockHeaderStatus(headerElement, blockId, item);
+            
             applyFilters();
         }
 
@@ -5192,7 +5210,7 @@
                     if (item.tipo === "EPISODES") {
                         item.episodi_dettaglio.forEach(ep => {
                             const itemId = generateItemId(serie.serie_titolo_it, item.id_originale, ep.numero);
-                            const card = createCardElement(ep, item, itemId); // Rimosso serieTitle, ora in item.serie_titolo_it_ref
+                            const card = createCardElement(ep, item, itemId);
                             cardGroupContainer.appendChild(card);
                         });
                     } else if (item.tipo === "OVA" || item.tipo === "FILM") {
@@ -5202,14 +5220,12 @@
                     }
                     itemsListContainer.appendChild(cardGroupContainer);
                     
-                    // Stato iniziale espansione/collasso e icona
                     const isInitiallyExpanded = !!expandedBlocks[blockId];
                     blockHeader.classList.toggle('expanded', isInitiallyExpanded);
                     cardGroupContainer.classList.toggle('collapsed', !isInitiallyExpanded);
                     cardGroupContainer.style.display = isInitiallyExpanded ? 'grid' : 'none';
                     
-                    // Ora chiama updateBlockHeaderStatus che gestirà l'icona corretta (freccia o sigillo)
-                    updateBlockHeaderStatus(blockHeader, blockId, item);
+                    updateBlockHeaderStatus(blockHeader, blockId, item); // Chiamata qui, dopo aver impostato 'expanded'
                     
                     blockHeader.addEventListener('click', () => toggleBlock(blockHeader, blockId, item));
                 });
@@ -5219,7 +5235,7 @@
             applyFilters();
         }
 
-        function createCardElement(epData, itemData, uniqueCardId) { // Rimosso serieTitle dai parametri
+        function createCardElement(epData, itemData, uniqueCardId) {
             const card = document.createElement('div');
             card.className = 'card';
             const canonStatusForClass = itemData.stato_canon || (itemData.tipo === "OVA" || itemData.tipo === "FILM" ? itemData.tipo.toLowerCase() : 'unknown');
