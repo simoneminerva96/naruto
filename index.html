@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracciatore Episodi Naruto - Stile Ninja Avanzato v2</title>
+    <title>Tracciatore Episodi Naruto - Ninja Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -58,27 +58,29 @@
         body {
             font-family: 'Open Sans', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 10px; /* Ridotto per mobile */
             background-color: var(--current-body-bg);
             color: var(--current-text-light);
             transition: background-color 0.3s, color 0.3s;
+            -webkit-tap-highlight-color: transparent; /* Per mobile */
         }
         .series-container {
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
         .series-title {
             font-family: 'Russo One', sans-serif;
-            font-size: 2.5em;
+            font-size: clamp(1.8em, 5vw, 2.5em); /* Responsive font size */
             color: var(--naruto-orange);
             margin-bottom: 5px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             border-bottom: 3px solid var(--naruto-orange-dark);
             padding-bottom: 10px;
+            word-break: break-word;
         }
         .series-meta {
-            font-size: 1em;
+            font-size: clamp(0.8em, 3vw, 1em);
             color: var(--current-text-dark);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .items-list-container {
@@ -89,7 +91,7 @@
 
         .item-block-header {
             background-color: var(--current-konoha-blue);
-            padding: 12px 15px;
+            padding: 10px 12px;
             margin-top: 10px;
             border-radius: 6px 6px 0 0;
             font-family: 'Russo One', sans-serif;
@@ -124,11 +126,11 @@
 
 
         .toggle-icon, .watched-block-icon {
-            margin-right: 12px;
-            font-size: 1.2em;
+            margin-right: 10px;
+            font-size: 1.1em;
             color: var(--naruto-orange);
             transition: transform 0.2s ease-in-out;
-            width: 20px;
+            width: 18px; /* Adattato */
             display: inline-block;
             text-align: center;
             line-height: 1;
@@ -141,13 +143,17 @@
             transform: rotate(90deg);
         }
 
+        .header-info {
+            flex-grow: 1; /* Permette al testo di andare a capo se necessario */
+            min-width: 0; /* Necessario per flex-grow con overflow */
+        }
         .header-info .range {
-            font-size: 1.1em;
-            margin-right: 10px;
+            font-size: 1em;
+            margin-right: 8px;
         }
         .header-info .canon-status {
-            font-size: 0.75em;
-            padding: 3px 7px;
+            font-size: 0.7em;
+            padding: 2px 6px;
             border-radius: 4px;
             color: white;
             text-transform: uppercase;
@@ -156,10 +162,13 @@
         }
         .header-info .arc, .header-info .item-title {
             font-family: 'Open Sans', sans-serif;
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: var(--current-text-dark);
             margin-top: 3px;
             display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
          .header-info .item-title {
             font-weight: bold;
@@ -168,9 +177,9 @@
 
         .card-group-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
-            padding: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* minmax ridotto per mobile */
+            gap: 12px;
+            padding: 12px;
             background-color: var(--current-konoha-blue-light);
             border-radius: 0 0 6px 6px;
             border-left: 5px solid var(--naruto-orange);
@@ -188,20 +197,20 @@
         .card {
             background-color: var(--current-card-bg);
             border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            padding: 12px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            border-left: 6px solid transparent;
-            border-top: 4px solid var(--naruto-orange);
+            border-left: 5px solid transparent;
+            border-top: 3px solid var(--naruto-orange);
             transition: opacity 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
             color: var(--current-text-light);
             position: relative;
         }
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25), 0 0 15px var(--naruto-orange-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2), 0 0 12px var(--naruto-orange-dark);
         }
 
         .card.canon { border-left-color: var(--status-canon); }
@@ -211,20 +220,20 @@
         .card.film { border-left-color: var(--status-film); }
 
         .card-header {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .card-header .number {
             font-family: 'Russo One', sans-serif;
-            font-size: 1.6em;
+            font-size: 1.4em;
             color: var(--naruto-orange);
-            margin-right: 10px;
+            margin-right: 8px;
         }
         .card-header .type-badge {
-            font-size: 0.75em;
-            padding: 3px 7px;
+            font-size: 0.7em;
+            padding: 2px 6px;
             border-radius: 10px;
             background-color: var(--naruto-orange);
             color: var(--current-konoha-blue);
@@ -233,20 +242,22 @@
         }
         .card-title-it {
             font-weight: 700;
-            font-size: 1.1em;
-            margin-bottom: 4px;
+            font-size: 1em;
+            margin-bottom: 3px;
             color: var(--current-text-light);
+            word-break: break-word;
         }
         .card-title-en {
-            font-size: 0.9em;
-            color: var(--current-text-dark);
-            margin-bottom: 12px;
-            font-style: italic;
-        }
-        .card-meta {
             font-size: 0.85em;
             color: var(--current-text-dark);
-            margin-top: 10px;
+            margin-bottom: 10px;
+            font-style: italic;
+            word-break: break-word;
+        }
+        .card-meta {
+            font-size: 0.8em;
+            color: var(--current-text-dark);
+            margin-top: 8px;
             line-height: 1.4;
         }
         .card-meta .canon-status {
@@ -259,37 +270,38 @@
 
         .card-footer {
             margin-top: auto;
-            padding-top: 12px;
+            padding-top: 10px;
             border-top: 1px solid var(--current-konoha-blue-light);
             display: flex;
             align-items: center;
         }
         .watched-checkbox {
             appearance: none;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border: 2px solid var(--naruto-orange);
             border-radius: 3px;
-            margin-right: 8px;
+            margin-right: 6px;
             cursor: pointer;
             position: relative;
             outline: none;
+            flex-shrink: 0; /* Non si restringe */
         }
         .watched-checkbox:checked {
             background-color: var(--naruto-orange);
         }
         .watched-checkbox:checked::before {
             content: '✔';
-            font-size: 14px;
+            font-size: 12px;
             color: var(--current-konoha-blue);
             position: absolute;
-            top: -1px;
+            top: 0px;
             left: 2px;
             font-weight: bold;
         }
         .watched-label {
             cursor: pointer;
-            font-size: 0.95em;
+            font-size: 0.9em;
             font-weight: 600;
         }
         .card.watched {
@@ -299,9 +311,9 @@
         .card.watched::after {
             content: "🍥";
             position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 2em;
+            top: 8px;
+            right: 8px;
+            font-size: 1.8em;
             color: var(--current-watched-icon-color);
             opacity: 0.7;
             pointer-events: none;
@@ -322,19 +334,26 @@
 
         .filters {
             background-color: var(--current-konoha-blue);
-            padding: 20px;
-            margin-bottom: 30px;
+            padding: 15px;
+            margin-bottom: 25px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 10px 15px;
+            gap: 10px 12px;
             transition: background-color 0.3s;
+        }
+        .filters .filter-group {
+            display: flex;
+            flex-wrap: wrap; /* Permette ai filtri di andare a capo */
+            gap: 8px 10px;
+            flex-grow: 1; /* Occupa spazio disponibile */
+            flex-basis: 200px; /* Base per andare a capo */
         }
         .filters label {
             margin-right: 5px;
-            font-size: 0.95em;
+            font-size: 0.9em;
             font-weight: 600;
             color: var(--current-text-light);
             cursor: pointer;
@@ -342,32 +361,37 @@
             align-items: center;
         }
         .filters input[type="checkbox"] {
-            margin-right: 5px;
-            transform: scale(1.1);
+            margin-right: 4px;
+            transform: scale(1);
             accent-color: var(--naruto-orange);
         }
         .filters .action-buttons {
-            margin-left: auto;
             display: flex;
-            gap: 10px;
+            gap: 8px;
+            flex-grow: 1; /* Occupa spazio */
+            flex-basis: 250px; /* Base per andare a capo, abbastanza per i bottoni */
+            justify-content: flex-end; /* Allinea a destra */
         }
         .filters button {
-            padding: 10px 15px;
+            padding: 8px 12px;
             background-color: var(--naruto-orange);
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 0.9em;
+            font-size: 0.85em;
             font-weight: bold;
             text-transform: uppercase;
             transition: background-color 0.2s ease;
             font-family: 'Russo One', sans-serif;
             letter-spacing: 0.5px;
+            flex-shrink: 0; /* Evita che i bottoni si restringano troppo */
         }
         .filters button#theme-toggle {
             background-color: var(--current-text-dark);
             color: var(--current-body-bg);
+            font-size: 1.2em; /* Per rendere l'icona più grande */
+            padding: 6px 10px;
         }
         .filters button:hover {
             background-color: var(--naruto-orange-dark);
@@ -378,14 +402,14 @@
 
 
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
         ::-webkit-scrollbar-track {
             background: var(--current-konoha-blue-light);
         }
         ::-webkit-scrollbar-thumb {
             background: var(--naruto-orange);
-            border-radius: 5px;
+            border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: var(--naruto-orange-dark);
@@ -396,15 +420,16 @@
 <body>
 
     <div class="filters">
-        <label><input type="checkbox" id="filter-canon" checked> CANON</label>
-        <label><input type="checkbox" id="filter-misto" checked> MISTO</label>
-        <label><input type="checkbox" id="filter-filler" checked> FILLER</label>
-        <label><input type="checkbox" id="filter-ova" checked> OVA</label>
-        <label><input type="checkbox" id="filter-film" checked> FILM</label>
-        <label style="margin-left: 20px;"><input type="checkbox" id="filter-hide-watched"> Nascondi Visti</label>
-
+        <div class="filter-group">
+            <label><input type="checkbox" id="filter-canon" checked> CANON</label>
+            <label><input type="checkbox" id="filter-misto" checked> MISTO</label>
+            <label><input type="checkbox" id="filter-filler" checked> FILLER</label>
+            <label><input type="checkbox" id="filter-ova" checked> OVA</label>
+            <label><input type="checkbox" id="filter-film" checked> FILM</label>
+            <label style="margin-left: 15px;"><input type="checkbox" id="filter-hide-watched"> Nascondi Visti</label>
+        </div>
         <div class="action-buttons">
-            <button id="theme-toggle">Toggle Tema</button>
+            <button id="theme-toggle">☀️</button> <!-- Icona iniziale per tema scuro -->
             <button id="uncheck-all-visible">Deseleziona Visibili</button>
             <button id="check-all-visible">Seleziona Visibili</button>
         </div>
@@ -4927,8 +4952,10 @@
             const savedTheme = localStorage.getItem(THEME_KEY);
             if (savedTheme === 'light') {
                 document.body.classList.add('light-theme');
+                themeToggleButton.textContent = '🌙'; // Mostra luna se il tema è chiaro (prossimo click sarà scuro)
             } else {
                 document.body.classList.remove('light-theme');
+                themeToggleButton.textContent = '☀️'; // Mostra sole se il tema è scuro (prossimo click sarà chiaro)
             }
         }
 
@@ -4936,8 +4963,10 @@
             document.body.classList.toggle('light-theme');
             if (document.body.classList.contains('light-theme')) {
                 localStorage.setItem(THEME_KEY, 'light');
+                themeToggleButton.textContent = '🌙';
             } else {
                 localStorage.setItem(THEME_KEY, 'dark');
+                themeToggleButton.textContent = '☀️';
             }
         }
 
@@ -4949,7 +4978,7 @@
 
             const storedExpanded = localStorage.getItem(EXPANDED_BLOCKS_KEY);
             if (storedExpanded) expandedBlocks = JSON.parse(storedExpanded);
-            else expandedBlocks = {}; // Default a vuoto, i blocchi partiranno collassati
+            else expandedBlocks = {};
         }
 
         function saveWatchedStatus() {
@@ -4974,24 +5003,24 @@
         }
         
         function checkAllItemsInBlockWatched(blockId, item) {
+            if (!item) return false; // Safety check
             if (item.tipo === "EPISODES") {
-                if (!item.episodi_dettaglio || item.episodi_dettaglio.length === 0) return false; // Blocco vuoto non è "tutto visto"
+                if (!item.episodi_dettaglio || item.episodi_dettaglio.length === 0) return false;
                 return item.episodi_dettaglio.every(ep => {
                     const cardId = generateItemId(item.serie_titolo_it_ref, item.id_originale, ep.numero);
                     return watchedItems[cardId];
                 });
-            } else { // OVA o FILM
+            } else {
                 const cardId = generateItemId(item.serie_titolo_it_ref, item.id_originale);
                 return watchedItems[cardId];
             }
         }
 
-        function updateBlockHeaderStatus(blockId, item) {
-            const headerEl = document.querySelector(`.item-block-header[data-block-id="${blockId}"]`);
-            if (!headerEl) return;
+        function updateBlockHeaderStatus(headerEl, blockId, item) {
+            if (!headerEl || !item) return;
 
             const allWatched = checkAllItemsInBlockWatched(blockId, item);
-            const iconEl = headerEl.querySelector('span:first-child'); // Il primo span è l'icona
+            const iconEl = headerEl.querySelector('span:first-child');
 
             headerEl.classList.toggle('all-watched', allWatched);
 
@@ -5019,8 +5048,10 @@
 
             document.querySelectorAll('.item-block-header').forEach(headerEl => {
                 const blockId = headerEl.dataset.blockId;
-                const item = seriesData.flatMap(s => s.voci).find(v => generateBlockId(v.serie_titolo_it_ref, v.id_originale) === blockId);
-                
+                 // Troviamo l'item corrispondente dall'array seriesData per accedere ai suoi dettagli
+                const item = seriesData.flatMap(s => s.voci.map(v_item => ({...v_item, serie_titolo_it_ref: s.serie_titolo_it})))
+                                      .find(v => generateBlockId(v.serie_titolo_it_ref, v.id_originale) === blockId);
+
                 if (!item) return;
 
                 const isBlockAllWatched = checkAllItemsInBlockWatched(blockId, item);
@@ -5093,7 +5124,7 @@
             
             expandedBlocks[blockId] = isExpanding;
             saveExpandedState();
-            updateBlockHeaderStatus(blockId, item); // Aggiorna l'icona
+            updateBlockHeaderStatus(headerElement, blockId, item);
             applyFilters();
         }
 
@@ -5129,7 +5160,7 @@
                     blockHeader.dataset.itemCanonStatus = item.stato_canon || (item.tipo === "OVA" || item.tipo === "FILM" ? item.tipo.toUpperCase() : '');
 
                     const iconSpan = document.createElement('span');
-                    blockHeader.appendChild(iconSpan); // L'icona verrà settata dopo
+                    blockHeader.appendChild(iconSpan);
 
                     const headerInfo = document.createElement('div');
                     headerInfo.className = 'header-info';
@@ -5161,36 +5192,24 @@
                     if (item.tipo === "EPISODES") {
                         item.episodi_dettaglio.forEach(ep => {
                             const itemId = generateItemId(serie.serie_titolo_it, item.id_originale, ep.numero);
-                            const card = createCardElement(ep, item, itemId, serie.serie_titolo_it);
+                            const card = createCardElement(ep, item, itemId); // Rimosso serieTitle, ora in item.serie_titolo_it_ref
                             cardGroupContainer.appendChild(card);
                         });
                     } else if (item.tipo === "OVA" || item.tipo === "FILM") {
                         const itemId = generateItemId(serie.serie_titolo_it, item.id_originale);
-                        const card = createCardElement(item, item, itemId, serie.serie_titolo_it);
+                        const card = createCardElement(item, item, itemId);
                         cardGroupContainer.appendChild(card);
                     }
                     itemsListContainer.appendChild(cardGroupContainer);
                     
-                    updateBlockHeaderStatus(blockId, item);
-                    
+                    // Stato iniziale espansione/collasso e icona
                     const isInitiallyExpanded = !!expandedBlocks[blockId];
                     blockHeader.classList.toggle('expanded', isInitiallyExpanded);
                     cardGroupContainer.classList.toggle('collapsed', !isInitiallyExpanded);
                     cardGroupContainer.style.display = isInitiallyExpanded ? 'grid' : 'none';
                     
-                    // Assicura che l'icona sia corretta anche dopo il check di all-watched
-                    const currentIconEl = blockHeader.querySelector('span:first-child');
-                    if (currentIconEl) {
-                        if (!blockHeader.classList.contains('all-watched')) {
-                             currentIconEl.classList.remove('watched-block-icon');
-                             currentIconEl.classList.add('toggle-icon');
-                             currentIconEl.innerHTML = isInitiallyExpanded ? '▼' : '►';
-                        } else {
-                             currentIconEl.classList.remove('toggle-icon');
-                             currentIconEl.classList.add('watched-block-icon');
-                             currentIconEl.innerHTML = '🍥';
-                        }
-                    }
+                    // Ora chiama updateBlockHeaderStatus che gestirà l'icona corretta (freccia o sigillo)
+                    updateBlockHeaderStatus(blockHeader, blockId, item);
                     
                     blockHeader.addEventListener('click', () => toggleBlock(blockHeader, blockId, item));
                 });
@@ -5200,7 +5219,7 @@
             applyFilters();
         }
 
-        function createCardElement(epData, itemData, uniqueCardId, serieTitle) {
+        function createCardElement(epData, itemData, uniqueCardId) { // Rimosso serieTitle dai parametri
             const card = document.createElement('div');
             card.className = 'card';
             const canonStatusForClass = itemData.stato_canon || (itemData.tipo === "OVA" || itemData.tipo === "FILM" ? itemData.tipo.toLowerCase() : 'unknown');
@@ -5248,7 +5267,8 @@
                 card.classList.toggle('watched', e.target.checked);
                 
                 const blockId = generateBlockId(itemData.serie_titolo_it_ref, itemData.id_originale);
-                updateBlockHeaderStatus(blockId, itemData);
+                const headerEl = document.querySelector(`.item-block-header[data-block-id="${blockId}"]`);
+                updateBlockHeaderStatus(headerEl, blockId, itemData);
                 applyFilters();
             });
             return card;
@@ -5265,22 +5285,24 @@
                         watchedItems[itemId] = markAsWatched;
                         card.classList.toggle('watched', markAsWatched);
                         
-                        const itemOriginalId = itemId.match(/_item(\d+)_/)[1] || itemId.match(/_item(\d+)$/)[1];
+                        const itemOriginalIdStr = itemId.match(/_item(\d+)_/)?.[1] || itemId.match(/_item(\d+)$/)?.[1];
                         const serieTitleRefSafe = itemId.split(/_item\d+/)[0];
                         
-                        let parentItem = null;
-                        for (const serie of seriesData) {
-                            if (serie.serie_titolo_it.replace(/[^a-zA-Z0-9]/g, '_') === serieTitleRefSafe) {
-                                parentItem = serie.voci.find(v => v.id_originale == itemOriginalId);
-                                if (parentItem) {
-                                    parentItem.serie_titolo_it_ref = serie.serie_titolo_it;
-                                    break;
+                        if(itemOriginalIdStr && serieTitleRefSafe) {
+                            const itemOriginalId = parseInt(itemOriginalIdStr, 10);
+                            let parentItem = null;
+                            for (const serie of seriesData) {
+                                if (serie.serie_titolo_it.replace(/[^a-zA-Z0-9]/g, '_') === serieTitleRefSafe) {
+                                    parentItem = serie.voci.find(v => v.id_originale === itemOriginalId);
+                                    if (parentItem) {
+                                        parentItem.serie_titolo_it_ref = serie.serie_titolo_it;
+                                        const blockId = generateBlockId(parentItem.serie_titolo_it_ref, parentItem.id_originale);
+                                        const headerEl = document.querySelector(`.item-block-header[data-block-id="${blockId}"]`);
+                                        updateBlockHeaderStatus(headerEl, blockId, parentItem);
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        if (parentItem) {
-                             const blockId = generateBlockId(parentItem.serie_titolo_it_ref, parentItem.id_originale);
-                             updateBlockHeaderStatus(blockId, parentItem);
                         }
                     }
                 }
