@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracciatore Episodi Naruto - Ninja Pro v3</title>
+    <title>Tracciatore Episodi Naruto - Ninja Pro v4</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -134,6 +134,7 @@
             display: inline-block;
             text-align: center;
             line-height: 1;
+            flex-shrink: 0; /* Non far restringere l'icona */
         }
          .watched-block-icon {
             font-family: 'Arial', sans-serif;
@@ -145,7 +146,7 @@
 
         .header-info {
             flex-grow: 1;
-            min-width: 0;
+            min-width: 0; /* Permette al testo di andare a capo se necessario */
         }
         .header-info .range {
             font-size: 1em;
@@ -349,8 +350,7 @@
             flex-wrap: wrap;
             gap: 8px 10px;
             flex-grow: 1;
-            flex-basis: 200px; /* Min width prima di andare a capo */
-            justify-content: flex-start; /* Allinea a sinistra */
+            flex-basis: auto; /* Modificato per permettere wrap naturale */
         }
         .filters label {
             margin-right: 5px;
@@ -368,21 +368,28 @@
         }
         .filters .action-buttons {
             display: flex;
+            flex-wrap: wrap; /* Permette ai bottoni di andare a capo */
             gap: 8px;
-            flex-grow: 1;
-            flex-basis: auto; /* Permetti ai bottoni di occupare lo spazio necessario */
-            justify-content: flex-end;
+            margin-left: auto; /* Spinge a destra se c'è spazio */
+            justify-content: flex-end; /* Allinea a destra */
         }
 
-        @media (max-width: 768px) { /* Per tablet e mobile */
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column; /* Filtri e bottoni in colonna */
+                align-items: stretch; /* Elementi occupano tutta la larghezza */
+            }
             .filters .filter-group {
-                flex-basis: 100%; /* Filtri occupano tutta la larghezza e vanno a capo */
-                justify-content: center; /* Centra i filtri quando sono a capo */
+                justify-content: center;
+                margin-bottom: 10px; /* Spazio tra gruppo filtri e bottoni */
             }
             .filters .action-buttons {
-                flex-basis: 100%; /* Bottoni occupano tutta la larghezza e vanno a capo */
+                margin-left: 0; /* Rimuove margine quando sono in colonna */
                 justify-content: center; /* Centra i bottoni */
-                margin-top: 10px;
+                width: 100%; /* Occupa tutta la larghezza disponibile */
+            }
+            .filters .action-buttons button {
+                flex-grow: 1; /* Fa espandere i bottoni per riempire lo spazio */
             }
         }
 
@@ -407,7 +414,7 @@
             color: var(--current-body-bg);
             font-size: 1.2em;
             padding: 6px 10px;
-            min-width: 40px; /* Per mantenere una dimensione minima */
+            min-width: 40px;
             text-align: center;
         }
         .filters button:hover {
@@ -4987,7 +4994,6 @@
             }
         }
 
-
         function loadState() {
             const storedWatched = localStorage.getItem(WATCHED_STORAGE_KEY);
             if (storedWatched) watchedItems = JSON.parse(storedWatched);
@@ -5020,16 +5026,19 @@
         }
         
         function checkAllItemsInBlockWatched(blockId, item) {
-            if (!item) return false;
+            if (!item || !item.serie_titolo_it_ref) { // Aggiunto controllo per item.serie_titolo_it_ref
+                // console.warn("checkAllItemsInBlockWatched: item o item.serie_titolo_it_ref mancante per blockId", blockId);
+                return false;
+            }
             if (item.tipo === "EPISODES") {
                 if (!item.episodi_dettaglio || item.episodi_dettaglio.length === 0) return false;
                 return item.episodi_dettaglio.every(ep => {
                     const cardId = generateItemId(item.serie_titolo_it_ref, item.id_originale, ep.numero);
-                    return watchedItems[cardId];
+                    return !!watchedItems[cardId]; // Forza a booleano
                 });
             } else {
                 const cardId = generateItemId(item.serie_titolo_it_ref, item.id_originale);
-                return watchedItems[cardId];
+                return !!watchedItems[cardId]; // Forza a booleano
             }
         }
 
@@ -5168,7 +5177,7 @@
                 itemsListContainer.className = 'items-list-container';
                 
                 serie.voci.forEach(item => {
-                    item.serie_titolo_it_ref = serie.serie_titolo_it;
+                    item.serie_titolo_it_ref = serie.serie_titolo_it; // Cruciale per checkAllItemsInBlockWatched
                     const blockId = generateBlockId(serie.serie_titolo_it, item.id_originale);
                     
                     const blockHeader = document.createElement('div');
@@ -5225,7 +5234,7 @@
                     cardGroupContainer.classList.toggle('collapsed', !isInitiallyExpanded);
                     cardGroupContainer.style.display = isInitiallyExpanded ? 'grid' : 'none';
                     
-                    updateBlockHeaderStatus(blockHeader, blockId, item); // Chiamata qui, dopo aver impostato 'expanded'
+                    updateBlockHeaderStatus(blockHeader, blockId, item);
                     
                     blockHeader.addEventListener('click', () => toggleBlock(blockHeader, blockId, item));
                 });
