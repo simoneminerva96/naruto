@@ -1,8 +1,5 @@
 
-# Naruto Episode Tracker 🌍
-
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/naruto-episode-tracker?style=social)](https://github.com/yourusername/naruto-episode-tracker)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/naruto-episode-tracker?style=social)](https://github.com/yourusername/naruto-episode-tracker)
+# Naruto Episode Tracker 🦊🍜🍥
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 Una pagina web per tracciare tutti gli episodi di **Naruto**, **Naruto Shippuden**, OVA e Speciali!  
