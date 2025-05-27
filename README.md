@@ -8,7 +8,7 @@
 Una pagina web per tracciare tutti gli episodi di **Naruto**, **Naruto Shippuden**, OVA e Speciali!  
 **Disponibile in italiano e inglese** 🇮🇹🇺🇸
 
-![Screenshot della Pagina](screenshot.png) <!-- Sostituisci con il percorso della tua immagine -->
+![Screenshot della Pagina](screenshot.png) 
 
 ## Caratteristiche ✨
 
@@ -21,8 +21,3 @@ Una pagina web per tracciare tutti gli episodi di **Naruto**, **Naruto Shippuden
 - 🌓 **Modalità chiaro/scuro**: Supporto per temi light/dark automatico
 - 📱 **Design responsive**: Funziona su desktop, tablet e mobile
 
-## Installazione 🛠️
-
-1. Clona il repository:
-   ```bash
-   git clone https://github.com/yourusername/naruto-episode-tracker.git
